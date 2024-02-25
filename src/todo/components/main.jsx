@@ -6,7 +6,7 @@ import classnames from "classnames";
 
 import { TOGGLE_ALL } from "../constants";
 
-export function Main({ todos, dispatch }) {
+export function Main({ todos, dispatch, completed, setCompleted }) {
     const { pathname: route } = useLocation();
 
     const visibleTodos = useMemo(
@@ -37,7 +37,7 @@ export function Main({ todos, dispatch }) {
             ) : null}
             <ul className={classnames("todo-list")} data-testid="todo-list">
                 {visibleTodos.map((todo, index) => (
-                    <Item todo={todo} key={todo.id} dispatch={dispatch} index={index} />
+                    <Item todo={todo} key={todo.id} dispatch={dispatch} index={index} completedTodos={completed} setCompletedTodos={setCompleted} />
                 ))}
             </ul>
         </main>

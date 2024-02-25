@@ -1,24 +1,68 @@
 /* used for things that should be hidden in the ui,
 but useful for people who use screen readers */
 .visually-hidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    width: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
 }
 
 .toggle-all {
-    width: 40px !important;
-    height: 60px !important;
-    right: auto !important;
+  width: 40px !important;
+  height: 60px !important;
+  right: auto !important;
 }
 
 .toggle-all-label {
-    pointer-events: none;
+  pointer-events: none;
+}
+
+table {
+  margin: 1rem 1rem;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+th,
+td {
+  text-align: center;
+  width: 10rem;
+  padding: 0.25rem;
+}
+
+.todo-list label.activity {
+  color: red;
+}
+
+
+.todo-list label.oldActivity {
+  color: black;
+}
+
+.todo-list label.completed {
+  color: #949494;
+  text-decoration: line-through
+}
+
+.todo-list label.green {
+  color: green;
+}
+
+.todo-list label.yellow {
+  color: yellow;
+}
+
+.todo-list label.magenta {
+  color: magenta;
 }

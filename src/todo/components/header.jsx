@@ -4,7 +4,9 @@ import { Input } from "./input";
 import { ADD_ITEM } from "../constants";
 
 export function Header({ dispatch }) {
-    const addItem = useCallback((title) => dispatch({ type: ADD_ITEM, payload: { title } }), [dispatch]);
+    const addItem = useCallback((title) => {
+        dispatch({ type: ADD_ITEM, payload: { title, dispatch } })
+    }, [dispatch]);
 
     return (
         <header className="header" data-testid="header">

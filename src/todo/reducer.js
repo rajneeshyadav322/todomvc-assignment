@@ -1,4 +1,4 @@
-import { ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM, TOGGLE_ITEM, REMOVE_ALL_ITEMS, TOGGLE_ALL, REMOVE_COMPLETED_ITEMS } from "./constants";
+import { ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM, TOGGLE_ITEM, REMOVE_ALL_ITEMS, TOGGLE_ALL, REMOVE_COMPLETED_ITEMS, UPDATE_COLOR } from "./constants";
 
 /* Borrowed from https://github.com/ai/nanoid/blob/3.0.2/non-secure/index.js
 
@@ -44,20 +44,27 @@ function nanoid(size = 21) {
 
 export const todoReducer = (state, action) => {
     switch (action.type) {
-        case ADD_ITEM:
-            return state.concat({ id: nanoid(), title: action.payload.title, completed: false });
+        case ADD_ITEM: {
+            const id = nanoid();
+            setTimeout(() => {
+                action.payload.dispatch({ type: UPDATE_COLOR, payload: { id } })
+            }, 15000)
+            return state.concat({ id: id, title: action.payload.title, completed: false, createdAt: new Date(), newActivity: true });
+        }
         case UPDATE_ITEM:
             return state.map((todo) => (todo.id === action.payload.id ? { ...todo, title: action.payload.title } : todo));
         case REMOVE_ITEM:
             return state.filter((todo) => todo.id !== action.payload.id);
         case TOGGLE_ITEM:
-            return state.map((todo) => (todo.id === action.payload.id ? { ...todo, completed: !todo.completed } : todo));
+            return state.map((todo) => (todo.id === action.payload.id ? { ...todo, completedAt: action.payload.completedAt, completed: !todo.completed } : todo));
         case REMOVE_ALL_ITEMS:
             return [];
         case TOGGLE_ALL:
             return state.map((todo) => (todo.completed !== action.payload.completed ? { ...todo, completed: action.payload.completed } : todo));
         case REMOVE_COMPLETED_ITEMS:
             return state.filter((todo) => !todo.completed);
+        case UPDATE_COLOR:
+            return state.map((todo) => todo.id === action.payload.id ? { ...todo, newActivity: false } : todo)
     }
 
     throw Error(`Unknown action: ${action.type}`);
